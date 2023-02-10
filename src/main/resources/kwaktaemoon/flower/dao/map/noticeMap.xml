@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE mapper PUBLIC '-//mybatis.org//DTD Mapper 3.0//EN'
+	'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
+<mapper namespace='kwaktaemoon.flower.dao.map.NoticeMap'>
+	<select id='selectNotices' resultType='notice'>
+      	select * from notices
+		order by notice_num
+	</select>
+   
+	<select id='selectDetailNotices' resultType='notice'>
+   		select * from notices
+   		where notice_num = #{noticeNum}
+	</select>
+	
+	<select id='selectAdminNotices' resultType='notice'>
+		select * from notices
+		order by notice_num
+	</select>
+ 
+	<select id='selectAdminDetailNotices' resultType='notice'>
+		select * from notices
+		where notice_num = #{noticeNum}
+	</select>
+  
+	<insert id="insertAdminNotice">
+			insert into notices(notice_num, title, content, regdate)
+			values (NOTICES_NOTICENUM_seq.nextval, #{title}, #{content}, sysdate)
+	</insert>
+
+	<update id='updateAdminNotice'>
+		update notices
+		set title = #{title},
+			content = #{content}
+		where notice_num = #{noticeNum}
+	</update>
+  
+	<delete id='deleteAdminNotice'>
+			delete notices
+			where notice_num = #{noticeNum}
+	</delete>
+</mapper>

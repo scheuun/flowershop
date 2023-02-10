@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE mapper PUBLIC '-//mybatis.org//DTD Mapper 3.0//EN'
+	'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
+<mapper namespace='kwaktaemoon.flower.dao.map.ReviewMap'>
+	<select id='selectReviews' resultType='review'>
+		select * from reviews
+		order by review_num
+	</select>
+	
+	<select id='detailReviews' resultType='review'>
+		select * from reviews
+		where review_num = #{reviewNum}
+	</select>
+	
+	<select id='selectAdminReviews' resultType='review'>
+		select * from reviews
+		order by review_num
+	</select>
+	
+	<select id='detailAdminReviews' resultType='review'>
+		select * from reviews
+		where review_num = #{reviewNum}
+	</select>
+	
+	<insert id='insertReview'>
+		insert into reviews(review_num, user_id, title, content, regdate)
+		values(REVIEWS_REVIEWNUM_SEQ.nextval, #{userId}, #{title}, #{content}, sysdate)
+	</insert>
+	
+	<update id='updateReview'>
+		update reviews
+		set title = #{title}, content = #{content}
+		where review_num = #{reviewNum}
+	</update>
+	
+	<delete id='deleteReview'>
+	   delete reviews
+	   where review_num = #{reviewNum}
+	</delete>
+	
+	<delete id='deleteAdminReview'>
+		delete reviews
+		where review_num = #{reviewNum}
+	</delete>
+</mapper> 

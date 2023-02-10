@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE mapper PUBLIC '-//mybatis.org//DTD Mapper 3.0//EN'
+	'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
+<mapper namespace='kwaktaemoon.flower.dao.map.UserMap'>
+	<select id='login' resultMap='loginMap'>
+		select * from users
+		where user_id = #{userId} and user_pw = #{userPw}
+	</select>
+	
+	<select id='selectId' resultType='string'>
+		select user_id from users
+		where user_id = #{userId}
+	</select>
+	
+	<select id='selectId2' resultType='string'>
+		select user_id from users
+		where user_name = #{userName} and contact_num = #{contactNum}
+	</select>
+	
+	<select id='selectPw' resultType='string'>
+		select user_pw from users
+		where user_name = #{userName} and user_id = #{userId} and email = #{email}
+	</select>
+	
+	<select id='selectUser' resultType='user'>
+		select user_id, user_name, birthday, email, contact_num, 
+		postcode, addr, detail_addr
+		from users
+		where user_id = #{userId}
+	</select>
+	
+	<insert id='insertUser'>
+		insert into users(user_id, user_pw, user_name, birthday, email,
+		contact_num, postcode, addr, detail_addr)
+		values (#{userId}, #{userPw}, #{userName}, #{birthday}, #{email},
+		 #{contactNum}, #{postcode}, #{addr}, #{detailAddr})
+	</insert>
+	
+	<update id='updatePw'>
+		update users
+		set user_pw = #{userPw}
+		where user_id = #{userId}
+	</update>
+	
+	<update id='updateEmail'>
+		update users
+		set email = #{email}
+		where user_id = #{userId}
+	</update>
+	
+	<update id='updateContactNum'>
+		update users
+		set contact_num = #{contactNum}
+		where user_id = #{userId}
+	</update>
+	
+	<update id='updateAddr'>
+		update users
+		set postcode = #{postcode},
+			addr = #{addr},
+			detail_addr = #{detailAddr}
+		where user_id = #{userId}
+	</update>
+	
+	<delete id='deleteUser'>
+		delete users
+		where user_id = #{userId}
+	</delete>
+	
+	<select id='selectUsersAdmin' resultType='user'>
+		select user_id, user_pw, user_name, birthday, email, contact_num,
+		postcode, addr, detail_addr
+		from users
+		order by user_id
+	</select>
+		
+	<insert id='insertUserAdmin'>
+		insert into users(user_id, user_pw, user_name, birthday, email
+		contact_num, postcode, addr, detail_addr)
+		values (#{userId}, #{userPw}, #{userName}, #{birthday}, #{email},
+		 #{contactNum}, #{postcode}, #{addr}, #{detailAddr})
+	</insert>
+	
+	<update id='updateUserAdmin'>
+		update users
+		set user_pw = #{userPw}, user_name = #{userName}, birthday = #{birthday},
+				email = #{email}, contact_num = #{contactNum}, postcode = #{postcode},
+				addr = #{addr}, detail_addr = #{detailAddr}
+		where user_id = #{userId}
+	</update>
+	
+	<delete id='deleteUserAdmin'>
+		delete users
+		where user_id = #{userId}
+	</delete>
+
+	<resultMap id='loginMap' type='user'>
+      <id property='userId' column='user_id'/>
+      <result property='userPw' column='user_pw'/>
+	</resultMap>
+   
+</mapper>

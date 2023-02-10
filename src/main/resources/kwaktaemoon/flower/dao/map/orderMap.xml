@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE mapper PUBLIC '-//mybatis.org//DTD Mapper 3.0//EN'
+	'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
+<mapper namespace='kwaktaemoon.flower.dao.map.OrderMap'>
+	<select id='selectOrders' resultType='Order'>
+		select * from orders
+		where user_id = #{userId}
+		order by order_num
+	</select>
+	
+	<select id='detailOrders' parameterType="java.lang.Integer" resultType='order'>
+		select * from orders
+		where order_num = #{orderNum}
+	</select>
+	
+	<select id='selectAdminOrders' resultType='order'>
+		select * from orders
+		order by order_num
+	</select>
+	
+	<insert id='insertOrder'>
+		insert into orders(order_num, user_id, rec_name, rec_contact_num, rec_postcode, rec_addr, 
+		rec_detail_addr, hope_deli_date, request, payment, price, flower_num, amount)
+		values((TO_CHAR(SYSDATE,'YYYYMMDD') || LPAD(ORDERS_ORDERNUM_SEQ.nextval,2,0)), #{userId}, 
+			#{recName}, #{recContactNum}, #{recPostCode}, #{recAddr}, 
+			#{recDetailAddr}, #{hopeDeliDate}, #{request}, #{payment}, #{price}, #{flowerNum}, #{amount})
+	</insert>
+	
+	<update id='updateDeliState'>
+		update orders
+		set deli_state = '취소/환불'
+		where order_num = #{orderNum}
+	</update>
+	
+	<update id='updateAdmDeliState'>
+		update orders
+		set deli_state = '배송 완료'
+		where order_num = #{orderNum}
+	</update>
+	
+	<delete id='deleteOrder'>
+	   delete orders
+	   where order_num = #{orderNum}
+	</delete>
+</mapper>

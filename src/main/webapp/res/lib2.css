@@ -1,0 +1,32 @@
+
+* {
+	font-family: 'Nanum Myeongjo', serif;
+}
+
+nav {
+  display: flex;
+  list-style: none;
+  border: 1px solid lightgrey;
+  height: 3rem;
+}
+
+ul li {
+  width: 20%;
+  height: 3rem;
+}
+
+ul li a {
+  display: block;
+  padding: 1em 3.5em;
+  text-decoration: none;
+  text-align: center;
+}
+
+ul li a:hover {
+	height: 3rem;
+	background-color:#b1c3e0
+}
+
+.navbar-brand {
+	font-family: 'Caveat', cursive;
+}

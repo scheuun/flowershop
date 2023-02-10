@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE mapper PUBLIC '-//mybatis.org//DTD Mapper 3.0//EN'
+	'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
+<mapper namespace='kwaktaemoon.flower.dao.map.FlowerMap'>
+	<select id='selectFlowers' resultType='flower'>
+		select * from flowers
+		order by flower_num
+	</select>	
+
+	<select id='selectAdminFlowers' resultType='flower'>
+		select * from flowers
+		order by regDate desc
+	</select>
+
+	<select id='detailFlowers' resultType='flower'>
+		select * from flowers
+		where flower_num = #{flowerNum}
+	</select>
+ 
+	<select id='searchFlowerWithKeyword' resultMap='flowerMap'>
+		select * from flowers
+		where flower_name LIKE '%'||#{keyword}||'%'
+	</select>
+	
+	<select id='searchFlower' resultType='flower'>
+		select * from flowers
+		where flower_num = #{flowerNum}
+	</select>	
+	
+	<insert id='insertFlower'>
+		insert into flowers(flower_num, flower_name, price, kind, flower_category, amount, flower_imgfile_name,
+				  detail_imgfile_name)
+		values(FLOWERS_FLOWERNUM_SEQ.nextval, #{flowerName}, #{price}, #{kind}, #{flowerCategory},  
+			1, #{flowerImgfileName}, #{detailImgfileName})	
+	</insert>
+	
+	<update id='updateFlower'>
+		update flowers
+		set flower_name = #{flowerName},
+			price = #{price},
+			kind = #{kind},
+			flower_category = #{flowerCategory}
+		where flower_num = #{flowerNum}
+	</update>
+	
+	<update id='updateAmount'>
+		update flowers
+		set amount = #{amount}
+		where flower_num = #{flowerNum}
+	</update>
+	
+	<delete id='deleteFlower'>
+	   delete flowers
+	   where flower_num = #{flowerNum}
+	</delete>
+	
+	<resultMap id='flowerMap' type='flower'>
+		<id property='flowerNum' column='flower_num'/>
+		<result property='flowerName' column='flower_name'/>
+		<result property='price' column='price'/>
+		<result property='kind' column='kind'/>
+		<result property='flowerCategori' column='flower_catagori'/>
+		<result property='flowerImgfileName' column='flower_imgfile_name'/>
+		<result property='detailImgfileName' column='detail_imgfile_name'/>
+		<result property='regDate' column='reg_date'/>
+		<result property='keyword' column='keyword'/>
+	</resultMap>
+</mapper>
